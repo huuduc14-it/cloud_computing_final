@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bài 1: Docker là gì?</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    article{max-width:800px;margin:40px auto;padding:0 20px;}
+    article h1{color:#0d47a1;margin-bottom:12px;}
+    pre{background:#1a237e;color:#e8eaf6;padding:16px;border-radius:8px;overflow-x:auto;font-size:.9rem;}
+    .tag{background:#e3f2fd;color:#0d47a1;padding:2px 8px;border-radius:4px;font-size:.8rem;margin-right:4px;}
+  </style>
+</head>
+<body>
+  <header>
+    <div style="font-size:2rem">🐳</div>
+    <div><h1>MyMiniCloud Blog</h1><small>Web Frontend Server 1</small></div>
+  </header>
+  <nav><a href="/">🏠 Home</a> <a href="/blog/">📝 Blog</a></nav>
+  <article>
+    <p style="margin:20px 0 8px"><a href="/blog/" style="color:#0d47a1">← Về Blog</a></p>
+    <h1>🐳 Bài 1: Docker là gì? Tại sao cần Docker?</h1>
+    <p><span class="tag">Container</span><span class="tag">Docker</span><span class="tag">DevOps</span></p>
+    <p style="color:#888;font-size:.9rem;margin:10px 0 24px">📅 01/01/2025 · Tran Van Huy</p>
+    <div style="background:#e3f2fd;border-radius:10px;height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:24px">🐳</div>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">1. Docker là gì?</h2>
+    <p>Docker là nền tảng mã nguồn mở giúp tự động hóa việc triển khai ứng dụng bên trong các <strong>container</strong> phần mềm. Thay vì cài đặt trực tiếp lên máy chủ, ứng dụng được đóng gói cùng toàn bộ dependency vào một container độc lập.</p>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">2. Container vs Virtual Machine</h2>
+    <p>Container nhẹ hơn VM vì chia sẻ kernel của OS host, không cần cài OS riêng → khởi động nhanh hơn, tiêu tốn ít RAM hơn.</p>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">3. Lệnh Docker cơ bản</h2>
+    <pre>docker pull nginx              # Tải image
+docker run -d -p 80:80 nginx   # Chạy container
+docker ps                      # Xem container đang chạy
+docker compose up -d           # Khởi động toàn bộ stack
+docker compose logs -f         # Xem log realtime</pre>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">4. Ứng dụng trong MyMiniCloud</h2>
+    <p>Trong dự án này, mỗi trong 9 server được đóng gói thành một Docker container riêng biệt, kết nối với nhau qua network <code>cloud-net</code>. Docker Compose quản lý toàn bộ vòng đời của hệ thống.</p>
+  </article>
+  <footer><p>© 2025 MyMiniCloud · Tran Van Huy &amp; Ho Huu Duc </p></footer>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Node Exporter – cơ bản
+  - job_name: 'node'
+    static_configs:
+      - targets: ['monitoring-node-exporter-server:9100']
+
+  # Web Frontend – mở rộng (yêu cầu 7)
+  - job_name: 'web'
+    static_configs:
+      - targets: ['web-frontend-server:80']
+
+  # Prometheus self-monitor
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

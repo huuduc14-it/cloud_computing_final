@@ -1,0 +1,7 @@
+[
+  {"id": 1, "name": "Nguyen Van An",   "major": "Cong Nghe Thong Tin", "gpa": 3.8},
+  {"id": 2, "name": "Tran Thi Binh",  "major": "Ky Thuat Phan Mem",   "gpa": 3.5},
+  {"id": 3, "name": "Le Van Cuong",   "major": "Khoa Hoc May Tinh",    "gpa": 3.9},
+  {"id": 4, "name": "Pham Thi Dung",  "major": "An Toan Thong Tin",    "gpa": 3.6},
+  {"id": 5, "name": "Hoang Van Em",   "major": "Cong Nghe Thong Tin",  "gpa": 3.7}
+]

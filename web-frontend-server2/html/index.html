@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyMiniCloud – Server 2</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <header>
+    <div style="font-size:2rem">☁️</div>
+    <div>
+      <h1>MyMiniCloud</h1>
+      <small>Web Frontend Server 2 – Tran Van Huy  &amp; Ho Huu Duc</small>
+    </div>
+  </header>
+  <nav>
+    <a href="/">🏠 Trang chủ</a>
+    <a href="/blog/">📝 Blog</a>
+    <a href="http://localhost:8085/hello" target="_blank">⚙️ App API</a>
+    <a href="http://localhost:8081" target="_blank">🔐 Keycloak</a>
+    <a href="http://localhost:9001" target="_blank">📦 MinIO</a>
+    <a href="http://localhost:9090" target="_blank">📊 Prometheus</a>
+    <a href="http://localhost:3000" target="_blank">📈 Grafana</a>
+  </nav>
+  <div class="hero">
+    <h2>☁️ Hệ thống Mini Cloud</h2>
+    <p>Mô phỏng 9 server – Docker Container – cloud-net</p>
+    <a href="/blog/" class="btn">Xem Blog →</a>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="icon">🌐</div>
+      <h3>Web Server</h3>
+      <p>Nginx phục vụ nội dung tĩnh. Port 8080 (Server 2) &amp; 8082 (Server 2).</p>
+    </div>
+    <div class="card">
+      <div class="icon">⚙️</div>
+      <h3>App Backend</h3>
+      <p>Flask API: /hello, /student, /students-db. Port 8085.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🗄️</div>
+      <h3>Database</h3>
+      <p>MariaDB – minicloud &amp; studentdb. Port 3306.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🔐</div>
+      <h3>Keycloak Auth</h3>
+      <p>Identity Provider OIDC. Port 8081 – admin/admin.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📦</div>
+      <h3>MinIO Storage</h3>
+      <p>Object Storage như S3. Console port 9001.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🌍</div>
+      <h3>DNS nội bộ</h3>
+      <p>Bind9 – zone cloud.local. Port 1053/UDP.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📊</div>
+      <h3>Prometheus</h3>
+      <p>Thu thập metric CPU/RAM/Network. Port 9090.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📈</div>
+      <h3>Grafana</h3>
+      <p>Dashboard trực quan hóa dữ liệu. Port 3000.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🔀</div>
+      <h3>Reverse Proxy</h3>
+      <p>Nginx Gateway – Round Robin Load Balancer. Port 80.</p>
+    </div>
+  </div>
+  <div class="blog-list">
+    <h2>📝 Bài viết mới nhất</h2>
+    <div class="post">
+      <h3><a href="/blog/blog1.html">Bài 1: Docker là gì? Tại sao cần Docker?</a></h3>
+      <div class="meta">📅 01/01/2025 · ☁️ Cloud &amp; Container</div>
+      <p>Giới thiệu về container, Docker Engine và cách Docker thay đổi cách triển khai phần mềm hiện đại.</p>
+    </div>
+    <div class="post">
+      <h3><a href="/blog/blog2.html">Bài 2: Kiến trúc Cloud Computing – IaaS, PaaS, SaaS</a></h3>
+      <div class="meta">📅 05/01/2025 · ☁️ Cloud Architecture</div>
+      <p>Tìm hiểu các mô hình dịch vụ cloud và cách AWS/Azure/GCP hoạt động trong thực tế.</p>
+    </div>
+    <div class="post">
+      <h3><a href="/blog/blog3.html">Bài 3: Nginx Reverse Proxy &amp; Load Balancer</a></h3>
+      <div class="meta">📅 10/01/2025 · 🔀 Networking</div>
+      <p>Cách cấu hình Nginx làm reverse proxy, route request và cân bằng tải Round Robin.</p>
+    </div>
+  </div>
+  <footer>
+    <p>© 2025 MyMiniCloud · Tran Van Huy &amp; Ho Huu Duc · Docker Network: cloud-net</p>
+  </footer>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bài 2: Kiến trúc Cloud</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    article{max-width:800px;margin:40px auto;padding:0 20px;}
+    article h1{color:#0d47a1;margin-bottom:12px;}
+    table{width:100%;border-collapse:collapse;margin:16px 0;}
+    th{background:#0d47a1;color:white;padding:10px 14px;text-align:left;}
+    td{padding:10px 14px;border:1px solid #ddd;}
+    tr:nth-child(even){background:#f5f5f5;}
+    .tag{background:#e3f2fd;color:#0d47a1;padding:2px 8px;border-radius:4px;font-size:.8rem;margin-right:4px;}
+  </style>
+</head>
+<body>
+  <header>
+    <div style="font-size:2rem">☁️</div>
+    <div><h1>MyMiniCloud Blog</h1><small>Web Frontend Server 1</small></div>
+  </header>
+  <nav><a href="/">🏠 Home</a> <a href="/blog/">📝 Blog</a></nav>
+  <article>
+    <p style="margin:20px 0 8px"><a href="/blog/" style="color:#0d47a1">← Về Blog</a></p>
+    <h1>☁️ Bài 2: Kiến trúc Cloud Computing</h1>
+    <p><span class="tag">Cloud</span><span class="tag">IaaS</span><span class="tag">PaaS</span><span class="tag">SaaS</span></p>
+    <p style="color:#888;font-size:.9rem;margin:10px 0 24px">📅 05/01/2025 · Ho Huu Duc</p>
+    <div style="background:#e8f5e9;border-radius:10px;height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:24px">☁️</div>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">1. Ba mô hình dịch vụ Cloud</h2>
+    <table>
+      <tr><th>Mô hình</th><th>Ví dụ</th><th>Người dùng quản lý</th></tr>
+      <tr><td><strong>IaaS</strong> – Infrastructure as a Service</td><td>AWS EC2, Azure VM</td><td>OS, Runtime, App, Data</td></tr>
+      <tr><td><strong>PaaS</strong> – Platform as a Service</td><td>Heroku, Google App Engine</td><td>App, Data</td></tr>
+      <tr><td><strong>SaaS</strong> – Software as a Service</td><td>Gmail, Salesforce</td><td>Chỉ sử dụng</td></tr>
+    </table>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">2. Mô hình triển khai</h2>
+    <ul style="padding-left:20px;line-height:2">
+      <li><strong>Public Cloud</strong>: AWS, Azure, GCP – chia sẻ hạ tầng đa khách hàng.</li>
+      <li><strong>Private Cloud</strong>: Hạ tầng riêng của tổ chức.</li>
+      <li><strong>Hybrid Cloud</strong>: Kết hợp public + private.</li>
+    </ul>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">3. MyMiniCloud = Private Cloud thu nhỏ</h2>
+    <p>Hệ thống 9 server trong dự án này mô phỏng một Private Cloud hoàn chỉnh với Web Hosting, App Backend, Database, Auth, Storage, DNS, Monitoring và API Gateway – tất cả kết nối qua Docker Network <code>cloud-net</code>.</p>
+  </article>
+  <footer><p>© 2025 MyMiniCloud · Tran Van Huy &amp; Ho Huu Duc</p></footer>
+</body>
+</html>

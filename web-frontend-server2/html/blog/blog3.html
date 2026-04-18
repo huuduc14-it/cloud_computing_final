@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bài 3: Nginx Reverse Proxy</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    article{max-width:800px;margin:40px auto;padding:0 20px;}
+    article h1{color:#0d47a1;margin-bottom:12px;}
+    pre{background:#1a237e;color:#e8eaf6;padding:16px;border-radius:8px;overflow-x:auto;font-size:.9rem;}
+    .tag{background:#e3f2fd;color:#0d47a1;padding:2px 8px;border-radius:4px;font-size:.8rem;margin-right:4px;}
+  </style>
+</head>
+<body>
+  <header>
+    <div style="font-size:2rem">🔀</div>
+    <div><h1>MyMiniCloud Blog</h1><small>Web Frontend Server 1</small></div>
+  </header>
+  <nav><a href="/">🏠 Home</a> <a href="/blog/">📝 Blog</a></nav>
+  <article>
+    <p style="margin:20px 0 8px"><a href="/blog/" style="color:#0d47a1">← Về Blog</a></p>
+    <h1>🔀 Bài 3: Nginx Reverse Proxy &amp; Load Balancer</h1>
+    <p><span class="tag">Nginx</span><span class="tag">Proxy</span><span class="tag">Load Balancer</span></p>
+    <p style="color:#888;font-size:.9rem;margin:10px 0 24px">📅 10/01/2025 · Tran Van Huy</p>
+    <div style="background:#fff3e0;border-radius:10px;height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:24px">🔀</div>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">1. Reverse Proxy là gì?</h2>
+    <p>Reverse Proxy là server trung gian nhận request từ client và chuyển tiếp đến backend server phù hợp. Client không biết server thật đứng sau là gì – giúp ẩn cấu trúc nội bộ và tập trung SSL.</p>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">2. Cấu hình Nginx trong MyMiniCloud</h2>
+    <pre>upstream web_backends {
+  server web-frontend-server:80;   # Server 1
+  server web-frontend-server2:80;  # Server 2 (Round Robin)
+}
+server {
+  listen 80;
+  location /       { proxy_pass http://web_backends; }
+  location /api/   { proxy_pass http://application-backend-server:8081/; }
+  location /auth/  { proxy_pass http://authentication-identity-server:8080/; }
+  location /student/ { proxy_pass http://application-backend-server:8081/student; }
+}</pre>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">3. Round Robin Load Balancing</h2>
+    <p>Với 2 web server, Nginx phân phối request luân phiên: Request 1 → Server 1, Request 2 → Server 2, Request 3 → Server 1, ... Giúp tăng khả năng chịu tải và tính sẵn sàng cao (High Availability).</p>
+    <h2 style="color:#0d47a1;margin:20px 0 10px">4. Lợi ích thực tế</h2>
+    <ul style="padding-left:20px;line-height:2">
+      <li>Một điểm vào duy nhất (port 80) cho toàn hệ thống</li>
+      <li>Tự động phân tải giữa nhiều backend</li>
+      <li>Dễ dàng mở rộng thêm server mà không đổi URL</li>
+      <li>Bảo vệ backend khỏi expose trực tiếp ra internet</li>
+    </ul>
+  </article>
+  <footer><p>© 2025 MyMiniCloud · Tran Van Huy &amp; Ho Huu Duc</p></footer>
+</body>
+</html>

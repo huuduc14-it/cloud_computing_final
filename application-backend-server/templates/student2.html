@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Danh sách sinh viên – JSON</title>
+    <link rel="stylesheet" href="/static/css/app-ui.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      header {
+        margin-bottom: 20px;
+      }
+
+      .detail-card {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 10px;
+        width: 300px;
+        background: #f9f9f9;
+      }
+
+      .field {
+        margin-bottom: 8px;
+      }
+
+      .label {
+        font-weight: bold;
+        display: inline-block;
+        width: 100px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 15px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ccc;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      .active-row {
+        background-color: #ffeeba !important;
+      }
+
+      a.btn {
+        text-decoration: none;
+        padding: 4px 8px;
+        background: #007bff;
+        color: white;
+        border-radius: 5px;
+      }
+
+      a.btn:hover {
+        background: #0056b3;
+      }
+
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>⚙️ Application Backend Server</h1>
+      <p>Nguồn: <strong>students.json</strong></p>
+    </header>
+
+    <main>
+      <!-- ================= DETAIL ================= -->
+      <h2>👤 Thông tin sinh viên</h2>
+
+      {% if student %}
+      <div class="detail-card">
+        <div class="field">
+          <span class="label">ID:</span>
+          <span class="value">{{ student.id }}</span>
+        </div>
+        <div class="field">
+          <span class="label">Họ tên:</span>
+          <span class="value">{{ student.name }}</span>
+        </div>
+        <div class="field">
+          <span class="label">Chuyên ngành:</span>
+          <span class="value">{{ student.major }}</span>
+        </div>
+        <div class="field">
+          <span class="label">GPA:</span>
+          <span class="value">{{ student.gpa }}</span>
+        </div>
+      </div>
+      {% else %}
+      <p class="error">❌ Không tìm thấy sinh viên.</p>
+      {% endif %}
+
+      <!-- ================= TABLE ================= -->
+      <h2 style="margin-top: 30px">📋 Danh sách sinh viên</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Họ tên</th>
+            <th>Chuyên ngành</th>
+            <th>GPA</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sv in students %}
+          <tr
+            class="{% if student and student.id == sv.id %}active-row{% endif %}"
+          >
+            <td>{{ sv.id }}</td>
+            <td>{{ sv.name }}</td>
+            <td>{{ sv.major }}</td>
+            <td>{{ sv.gpa }}</td>
+            <td>
+              <a class="btn" href="/student/view/{{ sv.id }}">👁 View</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- ================= LINK ================= -->
+      <p style="margin-top: 20px">
+        <a href="/student">📄 Xem JSON raw</a>
+      </p>
+    </main>
+  </body>
+</html>

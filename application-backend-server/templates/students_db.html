@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Danh sách sinh viên – Database</title>
+    <link rel="stylesheet" href="/static/css/app-ui.css" />
+  </head>
+  <body>
+    <header>
+      <h1>⚙️ Application Backend Server</h1>
+      <p>Nguồn: <strong>MariaDB → studentdb.students</strong></p>
+    </header>
+    <main>
+      <h2>📋 Danh sách sinh viên (đọc từ Database)</h2>
+      {% if error is defined and error %}
+      <div class="error">
+        ⚠️ Lỗi kết nối DB: {{ error }}<br />DB có thể đang khởi động, thử lại
+        sau 30 giây.
+      </div>
+      {% endif %} {% if students %}
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Mã SV</th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Chuyên ngành</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sv in students %}
+          <tr>
+            <td>{{ sv.id }}</td>
+            <td>{{ sv.student_id }}</td>
+            <td>{{ sv.fullname }}</td>
+            <td>{{ sv.dob }}</td>
+            <td>{{ sv.major }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="count">Tổng: {{ students | length }} sinh viên</p>
+      {% elif not error %}
+      <p>Chưa có dữ liệu trong database.</p>
+      {% endif %}
+      <p style="margin-top: 20px"><a href="/students-db">📄 Xem JSON raw</a></p>
+    </main>
+    <script src="/static/js/students-db.js"></script>
+  </body>
+</html>

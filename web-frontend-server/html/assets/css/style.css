@@ -1,0 +1,24 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #333; }
+header { background: linear-gradient(135deg,#1a237e,#0d47a1); color: white; padding: 18px 40px; display:flex; align-items:center; gap:16px; }
+header h1 { font-size: 1.6rem; }
+nav { background: #0d47a1; padding: 8px 40px; display:flex; gap:24px; }
+nav a { color: #90caf9; text-decoration:none; font-size:0.95rem; }
+nav a:hover { color: white; }
+.hero { background: linear-gradient(135deg,#0d47a1,#1565c0); color:white; padding:60px 40px; text-align:center; }
+.hero h2 { font-size:2.2rem; margin-bottom:12px; }
+.hero p { font-size:1.1rem; opacity:0.9; margin-bottom:24px; }
+.btn { background:#ffd600; color:#0d47a1; padding:12px 28px; border-radius:6px; text-decoration:none; font-weight:bold; }
+.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:40px; max-width:1100px; margin:auto; }
+.card { background:white; border-radius:10px; padding:24px; box-shadow:0 2px 8px rgba(0,0,0,.1); transition:.2s; }
+.card:hover { transform:translateY(-4px); box-shadow:0 6px 16px rgba(0,0,0,.15); }
+.card .icon { font-size:2.4rem; margin-bottom:10px; }
+.card h3 { color:#0d47a1; margin-bottom:8px; }
+.card p { font-size:.9rem; color:#555; }
+.blog-list { max-width:860px; margin:40px auto; padding:0 20px; }
+.blog-list h2 { color:#0d47a1; margin-bottom:20px; }
+.post { background:white; border-radius:10px; padding:20px 24px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+.post h3 a { color:#0d47a1; text-decoration:none; }
+.post h3 a:hover { text-decoration:underline; }
+.post .meta { color:#888; font-size:.85rem; margin:6px 0 10px; }
+footer { background:#1a237e; color:#aaa; text-align:center; padding:20px; font-size:.85rem; margin-top:40px; }

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Danh sách sinh viên – JSON</title>
+    <link rel="stylesheet" href="/static/css/app-ui.css" />
+  </head>
+  <body>
+    <header>
+      <h1>⚙️ Application Backend Server</h1>
+      <p>Nguồn: <strong>students.json</strong> (static file)</p>
+    </header>
+    <main>
+      <h2>👤 Thông tin sinh viên đơn (đọc từ JSON)</h2>
+      {% if students %} {% set s = students[0] %}
+      <div class="detail-card">
+        <div class="field">
+          <span class="label">ID</span><span class="value">{{ s.id }}</span>
+        </div>
+        <div class="field">
+          <span class="label">Họ tên</span
+          ><span class="value">{{ s.name }}</span>
+        </div>
+        <div class="field">
+          <span class="label">Chuyên ngành</span
+          ><span class="value">{{ s.major }}</span>
+        </div>
+        <div class="field">
+          <span class="label">GPA</span><span class="value">{{ s.gpa }}</span>
+        </div>
+      </div>
+      <h2 style="margin-top: 30px">📋 Tất cả sinh viên</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Họ tên</th>
+            <th>Chuyên ngành</th>
+            <th>GPA</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sv in students %}
+          <tr>
+            <td>{{ sv.id }}</td>
+            <td>{{ sv.name }}</td>
+            <td>{{ sv.major }}</td>
+            <td>{{ sv.gpa }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="error">Không có dữ liệu.</p>
+      {% endif %}
+      <p style="margin-top: 20px"><a href="/student">📄 Xem JSON raw</a></p>
+    </main>
+    <script src="/static/js/student.js"></script>
+  </body>
+</html>

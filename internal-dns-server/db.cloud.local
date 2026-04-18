@@ -1,0 +1,22 @@
+$TTL 3600
+@   IN SOA ns.cloud.local. admin.cloud.local. (
+        1       ; serial
+        3600    ; refresh
+        900     ; retry
+        604800  ; expire
+        3600 )  ; minimum
+
+    IN NS ns.cloud.local.
+
+ns IN A 127.0.0.1
+
+web-frontend-server IN A 10.10.10.10
+web-frontend-server2 IN A 10.10.10.11
+application-backend-server IN A 10.10.10.20
+relational-database-server IN A 10.10.10.30
+authentication-identity-server IN A 10.10.10.40
+object-storage-server IN A 10.10.10.50
+internal-dns-server IN A 10.10.10.60
+monitoring-prometheus-server IN A 10.10.10.70
+monitoring-grafana-dashboard-server IN A 10.10.10.80
+api-gateway-proxy-server IN A 10.10.10.90

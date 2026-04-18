@@ -1,0 +1,181 @@
+networks:
+  cloud-net:
+    name: cloud-net
+
+services:
+  # ────────────────────────────────────────────────────────
+  # 1a. Web Frontend Server 1 (Nginx – xanh dương)
+  # ────────────────────────────────────────────────────────
+  web-frontend-server:
+    build: ./web-frontend-server
+    image: tranvanhuy/myminicloud-web:dev
+    container_name: web-frontend-server
+    networks: [cloud-net]
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 1b. Web Frontend Server 2 (Nginx – đỏ, Round Robin)
+  # ────────────────────────────────────────────────────────
+  web-frontend-server2:
+    build: ./web-frontend-server2
+    image: tranvanhuy/myminicloud-web2:dev
+    container_name: web-frontend-server2
+    networks: [cloud-net]
+    ports:
+      - "8082:80"
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 2. Application Backend Server (Flask API + Templates)
+  # ────────────────────────────────────────────────────────
+  application-backend-server:
+    build: ./application-backend-server
+    image: tranvanhuy/myminicloud-app:dev
+    container_name: application-backend-server
+    networks: [cloud-net]
+
+    ports:
+      - "8085:8081"
+    environment:
+      OIDC_ISSUER: "http://authentication-identity-server:8080/realms/master"
+      OIDC_AUDIENCE: "myapp"
+      DB_HOST: "relational-database-server"
+      DB_USER: "root"
+      DB_PASS: "root"
+    depends_on:
+      - relational-database-server
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 3. Relational Database Server (MariaDB)
+  # ────────────────────────────────────────────────────────
+  relational-database-server:
+    image: mariadb:11
+    container_name: relational-database-server
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: minicloud
+    volumes:
+      - ./relational-database-server/init:/docker-entrypoint-initdb.d:ro
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks: [cloud-net]
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 4. Authentication Identity Server (Keycloak)
+  # ────────────────────────────────────────────────────────
+  authentication-identity-server:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: authentication-identity-server
+    command: ["start-dev"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: "localhost"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+    ports:
+      - "8081:8080"
+    networks: [cloud-net]
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 5. Object Storage Server (MinIO)
+  # ────────────────────────────────────────────────────────
+  object-storage-server:
+    image: minio/minio
+    container_name: object-storage-server
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - ./object-storage-server/data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks: [cloud-net]
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 6. Internal DNS Server (Bind9)
+  # ────────────────────────────────────────────────────────
+  internal-dns-server:
+    image: internetsystemsconsortium/bind9:9.18
+    container_name: internal-dns-server
+    user: root
+    ports:
+      - "1053:53/udp"
+    volumes:
+      - ./internal-dns-server/named.conf:/etc/bind/named.conf:ro
+      - ./internal-dns-server/named.conf.options:/etc/bind/named.conf.options:ro
+      - ./internal-dns-server/named.conf.local:/etc/bind/named.conf.local:ro
+      - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
+      - ./internal-dns-server/named.conf:/etc/bind/named.conf:ro
+    networks: [cloud-net]
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 7a. Node Exporter (metric collector)
+  # ────────────────────────────────────────────────────────
+  monitoring-node-exporter-server:
+    image: prom/node-exporter:latest
+    container_name: monitoring-node-exporter-server
+    ports:
+      - "9100:9100"
+    networks: [cloud-net]
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 7b. Monitoring Prometheus Server
+  # ────────────────────────────────────────────────────────
+  monitoring-prometheus-server:
+    image: prom/prometheus:latest
+    container_name: monitoring-prometheus-server
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring-prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks: [cloud-net]
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 8. Monitoring Grafana Dashboard Server
+  # ────────────────────────────────────────────────────────
+  monitoring-grafana-dashboard-server:
+    image: grafana/grafana:latest
+    container_name: monitoring-grafana-dashboard-server
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks: [cloud-net]
+    restart: unless-stopped
+
+  # ────────────────────────────────────────────────────────
+  # 9. API Gateway / Reverse Proxy (Nginx – Round Robin)
+  # ────────────────────────────────────────────────────────
+  api-gateway-proxy-server:
+    image: nginx:stable
+    container_name: api-gateway-proxy-server
+    ports:
+      - "80:80"
+    volumes:
+      - ./api-gateway-proxy-server/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web-frontend-server
+      - web-frontend-server2
+      - application-backend-server
+      - authentication-identity-server
+    networks: [cloud-net]
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  grafana-data:
