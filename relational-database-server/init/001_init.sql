@@ -42,3 +42,11 @@ INSERT INTO students (student_id, fullname, dob, major) VALUES
 -- SELECT * FROM students;
 -- UPDATE students SET gpa=3.9 WHERE student_id='SV001';
 -- DELETE FROM students WHERE student_id='SV005';
+-- ═══════════════════════════════════
+-- Allow Docker containers connect DB
+-- ═══════════════════════════════════
+
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
