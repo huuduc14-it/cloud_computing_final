@@ -72,6 +72,9 @@ Invoke-WebRequest http://localhost/student/ -UseBasicParsing | Select-Object -Ex
     Write-Host "Request $_ $server"
 }
 
+#for ubuntu
+for i in {1..6}; do curl -s http://localhost | grep -o "Server [12]"; done 
+
 # ── Ping mang noi bo (tu container proxy) ─────────────────────────────────
 docker exec api-gateway-proxy-server ping -c 3 web-frontend-server
 docker exec api-gateway-proxy-server ping -c 3 web-frontend-server2
